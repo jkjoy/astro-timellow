@@ -1,0 +1,47 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Comments from '../../components/Comments.astro';
+import { byPublished, categoryPath, formatDate, postPath, tagPath } from '../../lib/posts';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(byPublished);
+const index = posts.findIndex((item) => item.id === post.id);
+const previous = posts[index + 1];
+const next = posts[index - 1];
+---
+
+<BaseLayout title={post.data.title} description={post.data.description} image={post.data.cover}>
+  <main class="site-main">
+    <article class="content-card" itemscope itemtype="https://schema.org/BlogPosting">
+      <header class="article-header">
+        <h1 class="article-title" itemprop="headline">{post.data.title}</h1>
+        <div class="article-meta">
+          <time datetime={post.data.published.toISOString()} itemprop="datePublished">{formatDate(post.data.published)}</time>
+          <span class="meta-separator"></span>
+          <a href={categoryPath(post.data.category)}>{post.data.category}</a>
+          <span class="meta-separator"></span>
+          <a href="#comments">评论</a>
+        </div>
+      </header>
+      <div class="article-body" itemprop="articleBody"><Content /></div>
+      <footer class="article-footer">
+        <div class="tag-list">
+          {post.data.tags.map((tag) => <a class="tag-chip" href={tagPath(tag)}><span class="tag-hash">#</span><span>{tag}</span></a>)}
+        </div>
+      </footer>
+    </article>
+
+    <nav class="article-nav" aria-label="文章切换">
+      <div class="article-nav-card"><span class="article-nav-label">上一篇</span><p class="article-nav-title">{previous ? <a href={postPath(previous)}>{previous.data.title}</a> : '已经是第一篇了'}</p></div>
+      <div class="article-nav-card"><span class="article-nav-label">下一篇</span><p class="article-nav-title">{next ? <a href={postPath(next)}>{next.data.title}</a> : '已经是最后一篇了'}</p></div>
+    </nav>
+    <Comments />
+  </main>
+</BaseLayout>

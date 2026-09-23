@@ -1,0 +1,18 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { categoryPath } from '../lib/posts';
+const posts = await getCollection('posts', ({ data }) => !data.draft);
+const counts = new Map<string, number>();
+posts.forEach((post) => counts.set(post.data.category, (counts.get(post.data.category) || 0) + 1));
+const descriptions: Record<string, string> = { 技术: '关于 Astro、前端开发与效率工具。', 随笔: '城市、阅读与日常生活的片段。', 设计: '界面、排版与产品设计思考。' };
+---
+
+<BaseLayout title="全部分类">
+  <main class="site-main">
+    <section class="page-hero"><p class="page-eyebrow">Categories</p><h1 class="page-title">全部分类</h1><p class="page-description">从不同主题进入本站内容。</p></section>
+    <div class="taxonomy-grid">
+      {[...counts.entries()].map(([name, count]) => <article class="taxonomy-card"><h2 class="taxonomy-card-title"><a href={categoryPath(name)}>{name}</a></h2><p>{descriptions[name] || '这个分类下收纳了相关主题文章。'}</p><div class="taxonomy-card-meta">{count} 篇文章</div></article>)}
+    </div>
+  </main>
+</BaseLayout>

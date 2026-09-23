@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { byPublished, postPath } from '../lib/posts';
+
+const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(byPublished);
+const groups = Object.groupBy(posts, (post) => String(post.data.published.getFullYear()));
+---
+
+<BaseLayout title="文章归档" description="按年份浏览所有文章。">
+  <main class="site-main">
+    <section class="page-hero"><p class="page-eyebrow">Timeline</p><h1 class="page-title">文章归档</h1><p class="page-description">时间会把琐碎整理成线索，这里收录了本站的全部文章。</p></section>
+    <div class="archive-list">
+      {Object.entries(groups).reverse().map(([year, items]) => (
+        <section class="archive-year-card">
+          <div class="archive-year-header"><h2 class="archive-year-title">{year}</h2><span class="archive-year-count">{items?.length} 篇文章</span></div>
+          <div class="archive-items">{items?.map((post) => <article class="archive-item"><time>{String(post.data.published.getMonth() + 1).padStart(2, '0')}-{String(post.data.published.getDate()).padStart(2, '0')}</time><a href={postPath(post)}>{post.data.title}</a></article>)}</div>
+        </section>
+      ))}
+    </div>
+  </main>
+</BaseLayout>

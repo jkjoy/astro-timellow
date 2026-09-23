@@ -1,0 +1,10 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { tagPath } from '../lib/posts';
+const posts = await getCollection('posts', ({ data }) => !data.draft);
+const counts = new Map<string, number>();
+posts.flatMap((post) => post.data.tags).forEach((tag) => counts.set(tag, (counts.get(tag) || 0) + 1));
+const max = Math.max(...counts.values());
+---
+<BaseLayout title="全部标签"><main class="site-main"><section class="page-hero"><p class="page-eyebrow">Tags</p><h1 class="page-title">全部标签</h1><p class="page-description">用关键词穿行于不同文章之间。</p></section><article class="content-card"><div class="tag-cloud">{[...counts.entries()].map(([tag, count]) => <a class="tag-chip" href={tagPath(tag)} style={`--tag-scale: ${count / max}`}><span>#</span><span>{tag}</span><span>{count}</span></a>)}</div></article></main></BaseLayout>

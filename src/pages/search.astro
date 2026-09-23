@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import { byPublished } from '../lib/posts';
+const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(byPublished);
+---
+
+<BaseLayout title="搜索">
+  <main class="site-main">
+    <section class="page-hero"><p class="page-eyebrow">Search</p><h1 class="page-title" data-search-title>搜索文章</h1><p class="page-description" data-search-description>输入标题、摘要、分类或标签中的关键词。</p></section>
+    <form class="search-form search-page-form" action="/search/" role="search"><label for="page-search" class="screen-reader-text">搜索关键字</label><input id="page-search" type="search" name="q" placeholder="输入关键词" /><button type="submit">搜索</button></form>
+    <div class="post-list search-results" data-search-results>{posts.map((post) => <PostCard post={post} />)}</div>
+    <section class="empty-state" data-search-empty hidden><p>没有找到匹配的文章，试试其他关键词。</p></section>
+  </main>
+</BaseLayout>
+
+<script>
+  const params = new URLSearchParams(location.search);
+  const keyword = (params.get('q') || '').trim().toLowerCase();
+  const input = document.querySelector<HTMLInputElement>('#page-search');
+  const title = document.querySelector<HTMLElement>('[data-search-title]');
+  const description = document.querySelector<HTMLElement>('[data-search-description]');
+  const empty = document.querySelector<HTMLElement>('[data-search-empty]');
+  const items = [...document.querySelectorAll<HTMLElement>('[data-search-results] [data-search-item]')];
+  if (input) input.value = params.get('q') || '';
+  if (keyword) {
+    let count = 0;
+    items.forEach((item) => {
+      const haystack = `${item.dataset.title} ${item.dataset.description} ${item.dataset.taxonomy}`.toLowerCase();
+      const visible = haystack.includes(keyword);
+      item.hidden = !visible;
+      if (visible) count += 1;
+    });
+    if (title) title.textContent = `“${params.get('q')}” 的搜索结果`;
+    if (description) description.textContent = `共找到 ${count} 篇相关文章。`;
+    if (empty) empty.hidden = count !== 0;
+  }
+</script>

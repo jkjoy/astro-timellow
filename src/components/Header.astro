@@ -1,0 +1,43 @@
+---
+import { navItems, site } from '../data/site';
+
+const { pathname } = Astro.url;
+const isCurrent = (href: string) => href === '/' ? pathname === '/' : pathname.startsWith(href);
+---
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <a class="brand-link" href="/" aria-label={site.title}>
+        <span class="brand-copy">
+          <span class="brand-title">{site.title}</span>
+          <span class="brand-description">{site.description}</span>
+        </span>
+      </a>
+    </div>
+    <div class="header-actions">
+      <nav class="site-nav" aria-label="主导航">
+        {navItems.map((item) => (
+          <a class:list={{ 'is-current': isCurrent(item.href) }} href={item.href}>{item.label}</a>
+        ))}
+      </nav>
+      <div class="header-tools">
+        <button type="button" class="search-toggle" data-search-toggle aria-expanded="false" aria-controls="site-search-panel" title="搜索">
+          <span class="screen-reader-text">打开搜索</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.8-3.8"></path></svg>
+        </button>
+        <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="false" title="切换深色模式">
+          <span class="screen-reader-text" data-theme-label>切换深色模式</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle class="theme-icon-light" cx="12" cy="12" r="8.5"></circle><path class="theme-icon-dark" d="M12 3.5a8.5 8.5 0 0 0 0 17z"></path><circle class="theme-icon-ring" cx="12" cy="12" r="8.5"></circle></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="search-panel" id="site-search-panel" data-search-panel hidden>
+    <form class="search-form" action="/search/" role="search">
+      <label for="timellow-search" class="screen-reader-text">搜索关键字</label>
+      <input id="timellow-search" type="search" name="q" placeholder="搜索文章、分类或标签" />
+      <button type="submit">搜索</button>
+    </form>
+  </div>
+</header>

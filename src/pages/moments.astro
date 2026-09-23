@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { moments } from '../data/site';
+---
+
+<BaseLayout title="说说" description="一些比文章更短的近况和念头。">
+  <main class="site-main">
+    <section class="page-hero"><p class="page-eyebrow">Moments</p><h1 class="page-title">说说</h1><p class="page-description">一些不必展开成长文的近况、念头和现场。</p></section>
+    <section class="moments-list" aria-label="说说列表">
+      {moments.map((moment) => (
+        <article class="moment-item"><div class="moment-main">
+          <div class="moment-tags">{moment.tags.map((tag) => <span class="moment-tag">#{tag}</span>)}</div>
+          <div class="moment-content">{moment.content}</div>
+          {moment.media.length > 0 && <div class:list={['moment-media-grid', { 'is-single': moment.media.length === 1, 'is-two': moment.media.length === 2 }]}>{moment.media.map((image) => <a class="moment-media-item" href={image} target="_blank"><img src={image} alt="说说配图" loading="lazy" /></a>)}</div>}
+          <footer class="moment-meta"><span class="moment-meta-left"><time class="moment-published">{moment.date}</time>{moment.location && <span class="moment-location"><svg class="moment-location-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>{moment.location}</span>}</span><span class="moment-source">来自 {moment.source}</span></footer>
+        </div></article>
+      ))}
+    </section>
+  </main>
+</BaseLayout>

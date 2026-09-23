@@ -1,0 +1,59 @@
+<section class="comments-section" id="comments">
+  <h2 class="comments-header">
+    <span class="comments-header-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z"></path></svg></span>
+    <span>评论</span>
+  </h2>
+  <ol class="comment-list" data-comment-list>
+    <li class="comment-card">
+      <div class="comment-row">
+        <div class="comment-avatar"><span class="comment-avatar-fallback">林</span></div>
+        <div class="comment-main">
+          <div class="comment-header"><div class="comment-meta-block"><strong class="comment-author">林间</strong><time class="comment-date">2026-09-18</time></div></div>
+          <div class="comment-content"><p>很喜欢这种克制的排版，阅读时注意力会自然落在内容上。</p></div>
+        </div>
+      </div>
+    </li>
+  </ol>
+  <form class="comment-form-card" data-comment-form>
+    <div class="comment-form-grid">
+      <input class="comment-form-field" name="author" placeholder="称呼 *" required />
+      <input class="comment-form-field" name="email" type="email" placeholder="邮箱 *" required />
+      <input class="comment-form-field" name="website" type="url" placeholder="网站" />
+    </div>
+    <textarea name="content" placeholder="写下你的评论..." required></textarea>
+    <div class="comment-form-meta">
+      <span class="comment-form-tip" data-comment-tip>评论将保存在当前浏览器中</span>
+      <button class="button-link comment-submit-button" type="submit">提交评论</button>
+    </div>
+  </form>
+</section>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-comment-form]');
+  const list = document.querySelector<HTMLOListElement>('[data-comment-list]');
+  const tip = document.querySelector<HTMLElement>('[data-comment-tip]');
+  const key = `timellow-comments:${location.pathname}`;
+
+  const escapeHtml = (value: string) => value.replace(/[&<>'"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[char] || char);
+  const commentHtml = (comment: { author: string; content: string; date: string }) => `<li class="comment-card"><div class="comment-row"><div class="comment-avatar"><span class="comment-avatar-fallback">${escapeHtml(comment.author.slice(0, 1))}</span></div><div class="comment-main"><div class="comment-header"><div class="comment-meta-block"><strong class="comment-author">${escapeHtml(comment.author)}</strong><time class="comment-date">${comment.date}</time></div></div><div class="comment-content"><p>${escapeHtml(comment.content)}</p></div></div></div></li>`;
+
+  let comments: { author: string; content: string; date: string }[] = [];
+  try { comments = JSON.parse(localStorage.getItem(key) || '[]'); } catch {}
+  comments.forEach((comment) => list?.insertAdjacentHTML('beforeend', commentHtml(comment)));
+
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const comment = {
+      author: String(data.get('author') || '').trim(),
+      content: String(data.get('content') || '').trim(),
+      date: new Intl.DateTimeFormat('zh-CN').format(new Date()).replaceAll('/', '-')
+    };
+    if (!comment.author || !comment.content) return;
+    comments.push(comment);
+    localStorage.setItem(key, JSON.stringify(comments));
+    list?.insertAdjacentHTML('beforeend', commentHtml(comment));
+    form.reset();
+    if (tip) tip.textContent = '评论已保存';
+  });
+</script>

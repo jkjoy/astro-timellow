@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Comments from '../components/Comments.astro';
+import { linkGroups } from '../data/site';
+---
+
+<BaseLayout title="友情链接" description="值得常常访问的网站与朋友们。">
+  <main class="site-main">
+    <section class="page-hero"><p class="page-eyebrow">Friends</p><h1 class="page-title">友情链接</h1><p class="page-description">互联网因为彼此发现而变得更有趣。这里是我常读的网站和朋友们的住处。</p></section>
+    {linkGroups.map((group) => <section class="links-group"><h2 class="links-group-title"><span>{group.name}</span><span class="links-group-count">{group.links.length} 个站点</span></h2><div class="links-grid">{group.links.map((link) => { const host = new URL(link.url).hostname; return <article class="link-card"><div class="link-avatar"><span class="link-avatar-fallback">{link.name.slice(0, 1)}</span></div><div class="link-main"><div class="link-heading"><a class="link-name" href={link.url} target="_blank" rel="noopener nofollow">{link.name}</a><span class="link-host">{host}</span></div><p class="link-desc">{link.description}</p></div></article> })}</div></section>)}
+    <Comments />
+  </main>
+</BaseLayout>

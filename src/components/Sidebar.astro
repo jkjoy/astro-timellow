@@ -1,0 +1,51 @@
+---
+import type { Post } from '../lib/posts';
+import { formatDate, postPath } from '../lib/posts';
+import { site } from '../data/site';
+
+interface Props { posts: Post[] }
+const { posts } = Astro.props;
+---
+
+<aside class="site-sidebar" aria-label="侧边栏">
+  <section class="sidebar-widget sidebar-profile-widget">
+    <div class="sidebar-profile">
+      <div class="sidebar-profile-avatar" aria-hidden="true"><span>孙</span></div>
+      <h2 class="sidebar-profile-name">{site.author}</h2>
+      <p class="sidebar-profile-bio">{site.authorBio}</p>
+    </div>
+    <nav class="sidebar-profile-links" aria-label="博主链接">
+      <a class="sidebar-profile-link" href="/rss.xml" aria-label="RSS" title="RSS">
+        <svg viewBox="0 0 24 24"><path d="M5 11a8 8 0 0 1 8 8"></path><path d="M5 5a14 14 0 0 1 14 14"></path><circle cx="6" cy="18" r="1"></circle></svg>
+      </a>
+      <a class="sidebar-profile-link" href={`mailto:${site.email}`} aria-label="邮件" title="邮件">
+        <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg>
+      </a>
+      <a class="sidebar-profile-link" href="https://github.com/" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+        <svg viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3.3-.4 6.8-1.6 6.8-7A5.4 5.4 0 0 0 19.4 4 5 5 0 0 0 19.3.5S18.2.1 15 1.8a13.4 13.4 0 0 0-7 0C4.8.1 3.7.5 3.7.5A5 5 0 0 0 3.6 4a5.4 5.4 0 0 0-1.4 3.7c0 5.3 3.5 6.5 6.8 7A4.8 4.8 0 0 0 8 18v4"></path><path d="M8 19c-3 .9-3-1.5-4-2"></path></svg>
+      </a>
+    </nav>
+  </section>
+
+  <section class="sidebar-widget">
+    <h2 class="sidebar-widget-title">最新文章</h2>
+    <ol class="sidebar-list">
+      {posts.slice(0, 4).map((post) => (
+        <li class="sidebar-list-item">
+          <a class="sidebar-item-link" href={postPath(post)}>
+            <span class="sidebar-item-title">{post.data.title}</span>
+            <span class="sidebar-item-meta">{formatDate(post.data.published)}</span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="sidebar-widget">
+    <h2 class="sidebar-widget-title">最新说说</h2>
+    <ol class="sidebar-list">
+      <li class="sidebar-list-item"><a class="sidebar-item-link" href="/moments/"><span class="sidebar-moment-text">九月的风已经有一点凉了。把工作台收拾干净，继续完成这个主题。</span><span class="sidebar-item-meta">2026-09-20</span></a></li>
+      <li class="sidebar-list-item"><a class="sidebar-item-link" href="/moments/"><span class="sidebar-moment-text">设计不是把所有东西都放进去，而是知道什么应该被留下。</span><span class="sidebar-item-meta">2026-09-12</span></a></li>
+    </ol>
+  </section>
+</aside>

@@ -1,0 +1,24 @@
+---
+import type { Post } from '../lib/posts';
+import { categoryPath, formatDate, postPath } from '../lib/posts';
+interface Props { post: Post }
+const { post } = Astro.props;
+---
+
+<article class:list={['post-card', { 'is-sticky': post.data.sticky }]} data-search-item data-title={post.data.title} data-description={post.data.description} data-taxonomy={`${post.data.category} ${post.data.tags.join(' ')}`} itemscope itemtype="https://schema.org/BlogPosting">
+  <a class="post-thumb-link" href={postPath(post)} aria-label={post.data.title}>
+    {post.data.cover ? <img class="post-thumb" src={post.data.cover} alt={post.data.title} loading="lazy" decoding="async" /> : <span class="post-thumb-placeholder">{post.data.title.slice(0, 1)}</span>}
+  </a>
+  <div class="post-body">
+    <h2 class="post-title" itemprop="headline">
+      {post.data.sticky && <span class="post-sticky-badge">置顶</span>}
+      <a href={postPath(post)} itemprop="url">{post.data.title}</a>
+    </h2>
+    <div class="post-meta">
+      <time datetime={post.data.published.toISOString()} itemprop="datePublished">{formatDate(post.data.published)}</time>
+      <span class="meta-separator"></span>
+      <a href={categoryPath(post.data.category)}>{post.data.category}</a>
+    </div>
+    <p class="post-excerpt" itemprop="description">{post.data.description}</p>
+  </div>
+</article>
