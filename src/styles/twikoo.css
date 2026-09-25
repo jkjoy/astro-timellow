@@ -1,0 +1,731 @@
+/* Structural styles for Twikoo's nocss client, matched to Timellow. */
+.comments-section .twikoo {
+  position: relative;
+  color: var(--text);
+  font-size: 14px;
+}
+
+.comments-section .twikoo *,
+.comments-section .twikoo *::before,
+.comments-section .twikoo *::after {
+  box-sizing: border-box;
+}
+
+.comments-section .twikoo svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+.comments-section .twikoo .tk-submit {
+  display: flex;
+  flex-direction: column;
+}
+
+.comments-section .twikoo .tk-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.comments-section .twikoo .tk-col,
+.comments-section .twikoo .tk-main {
+  min-width: 0;
+  flex: 1;
+}
+
+.comments-section .twikoo .tk-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.comments-section .twikoo .tk-avatar {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  margin-right: 14px;
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--bg-soft);
+  color: var(--text-muted);
+}
+
+.comments-section .twikoo .tk-avatar-img,
+.comments-section .twikoo .tk-avatar-img img {
+  width: 100%;
+  height: 100%;
+}
+
+.comments-section .twikoo .tk-avatar-img img {
+  object-fit: cover;
+}
+
+.comments-section .twikoo .tk-avatar.tk-clickable {
+  cursor: pointer;
+}
+
+.comments-section .twikoo .tk-comment .tk-submit .tk-avatar,
+.comments-section .twikoo .tk-replies .tk-avatar {
+  width: 36px;
+  height: 36px;
+  flex-basis: 36px;
+  margin-right: 12px;
+}
+
+.comments-section .twikoo .tk-meta-input {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.comments-section .twikoo .el-input,
+.comments-section .twikoo .el-input-group {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  width: 100%;
+  font-size: 13px;
+}
+
+.comments-section .twikoo .el-input-group__prepend,
+.comments-section .twikoo .el-input-group__append {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 10px;
+  border: 1px solid var(--border);
+  background: var(--surface-muted);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.comments-section .twikoo .el-input-group__prepend {
+  border-right: 0;
+  border-radius: 6px 0 0 6px;
+}
+
+.comments-section .twikoo .el-input-group__append {
+  border-left: 0;
+  border-radius: 0 6px 6px 0;
+}
+
+.comments-section .twikoo .el-input__inner,
+.comments-section .twikoo .el-textarea__inner {
+  width: 100%;
+  border: 1px solid var(--border) !important;
+  background: transparent !important;
+  color: var(--text) !important;
+  outline: 0;
+  box-shadow: none !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.comments-section .twikoo .el-input__inner {
+  min-width: 0;
+  height: 36px;
+  padding: 0 10px;
+  border-radius: 6px;
+}
+
+.comments-section .twikoo .el-input-group--prepend .el-input__inner {
+  border-radius: 0 6px 6px 0;
+}
+
+.comments-section .twikoo .el-textarea {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.comments-section .twikoo .el-textarea__inner {
+  display: block;
+  min-height: 132px !important;
+  padding: 10px 12px 28px;
+  border-radius: 6px;
+  font: inherit;
+  line-height: 1.7;
+  resize: vertical;
+}
+
+.comments-section .twikoo .el-input__inner::placeholder,
+.comments-section .twikoo .el-textarea__inner::placeholder {
+  color: var(--disabled-text);
+}
+
+.comments-section .twikoo .el-input__inner:focus,
+.comments-section .twikoo .el-textarea__inner:focus {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 4px var(--accent-soft) !important;
+}
+
+.comments-section .twikoo .el-textarea .el-input__count {
+  position: absolute;
+  right: 10px;
+  bottom: 7px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.comments-section .twikoo .tk-row.actions {
+  position: relative;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 12px 0 18px 62px;
+}
+
+.comments-section .twikoo .tk-row-actions-start {
+  display: flex;
+  flex: 1;
+  align-items: center;
+}
+
+.comments-section .twikoo .tk-submit-action-icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+  color: var(--text-muted);
+  line-height: 0;
+  cursor: pointer;
+}
+
+.comments-section .twikoo .tk-submit-action-icon:hover {
+  color: var(--accent);
+}
+
+.comments-section .twikoo .tk-input-image {
+  display: none;
+}
+
+.comments-section .twikoo .tk-turnstile-container {
+  position: absolute;
+  right: 0;
+  bottom: -75px;
+  z-index: 10;
+}
+
+.comments-section .twikoo .tk-turnstile {
+  display: flex;
+  flex-direction: column;
+}
+
+.comments-section .twikoo .el-button {
+  min-height: 34px;
+  padding: 0 13px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-soft);
+  font: inherit;
+  font-size: 12px;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.comments-section .twikoo .el-button + .el-button {
+  margin-left: 8px;
+}
+
+.comments-section .twikoo .el-button:hover,
+.comments-section .twikoo .el-button:focus-visible {
+  border-color: var(--accent-border);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.comments-section .twikoo .el-button--text {
+  min-height: auto;
+  padding: 0;
+  border: 0;
+  color: var(--accent);
+}
+
+.comments-section .twikoo .el-button--primary {
+  border-color: var(--comment-submit) !important;
+  background: var(--comment-submit) !important;
+  color: #ffffff !important;
+}
+
+.comments-section .twikoo .el-button--primary:hover,
+.comments-section .twikoo .el-button--primary:focus-visible {
+  border-color: var(--comment-submit-hover) !important;
+  background: var(--comment-submit-hover) !important;
+}
+
+.comments-section .twikoo .el-button.is-disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.comments-section .twikoo .tk-error-message,
+.comments-section .twikoo .tk-comments-error {
+  color: var(--inline-code-text);
+  font-size: 12px;
+}
+
+.comments-section .twikoo .tk-preview-container {
+  margin: 0 0 16px 62px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.comments-section .twikoo .tk-comments-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 22px 0 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.comments-section .twikoo .tk-comments-count.__hidden {
+  visibility: hidden;
+}
+
+.comments-section .twikoo .tk-comments-container {
+  min-height: 110px;
+  display: flex;
+  flex-direction: column;
+}
+
+.comments-section .twikoo .tk-comments-no {
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.comments-section .twikoo .tk-icon.__comments {
+  width: 14px;
+  height: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+  color: var(--accent);
+  line-height: 0;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.comments-section .twikoo .tk-comment {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.comments-section .twikoo .tk-nick,
+.comments-section .twikoo .tk-nick-link {
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.comments-section .twikoo .tk-nick-link:hover {
+  color: var(--accent);
+}
+
+.comments-section .twikoo .tk-actions,
+.comments-section .twikoo .tk-action,
+.comments-section .twikoo .tk-action-link {
+  display: inline-flex;
+  align-items: center;
+}
+
+.comments-section .twikoo .tk-actions {
+  margin-left: 10px;
+}
+
+.comments-section .twikoo .tk-action-link {
+  margin-left: 8px;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.comments-section .twikoo .tk-action-link:hover {
+  color: var(--accent);
+}
+
+.comments-section .twikoo .tk-action-icon {
+  width: 14px;
+  height: 14px;
+  line-height: 0;
+}
+
+.comments-section .twikoo .tk-action-link .tk-action-icon-solid {
+  display: none;
+}
+
+.comments-section .twikoo .tk-action-link.tk-liked .tk-action-icon,
+.comments-section .twikoo .tk-action-link:hover .tk-action-icon {
+  display: none;
+}
+
+.comments-section .twikoo .tk-action-link.tk-liked .tk-action-icon-solid,
+.comments-section .twikoo .tk-action-link:hover .tk-action-icon-solid {
+  display: block;
+}
+
+.comments-section .twikoo .tk-action-count {
+  margin-left: 4px;
+  font-size: 12px;
+}
+
+.comments-section .twikoo .tk-content {
+  position: relative;
+  max-height: 500px;
+  margin-top: 8px;
+  overflow: hidden;
+  color: var(--text-soft);
+  line-height: 1.75;
+}
+
+.comments-section .twikoo .tk-content-expand {
+  max-height: none;
+}
+
+.comments-section .twikoo .tk-content p {
+  margin: 0.65em 0;
+}
+
+.comments-section .twikoo .tk-content img {
+  max-width: min(100%, 300px);
+  max-height: 300px;
+  border-radius: 6px;
+  vertical-align: middle;
+}
+
+.comments-section .twikoo .tk-owo-emotion,
+.comments-section .twikoo .OwO-item img {
+  width: 3em;
+  height: auto;
+}
+
+.comments-section .twikoo .tk-extras {
+  display: flex;
+  flex-wrap: wrap;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.comments-section .twikoo .tk-extra {
+  display: flex;
+  align-items: center;
+  margin: 6px 12px 0 0;
+}
+
+.comments-section .twikoo .tk-icon.__comment {
+  width: 13px;
+  height: 13px;
+  margin-right: 3px;
+}
+
+.comments-section .twikoo .tk-replies {
+  position: relative;
+  max-height: 240px;
+  margin: 12px 0 0 12px;
+  padding-left: 16px;
+  border-left: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.comments-section .twikoo .tk-replies-expand {
+  max-height: none;
+  overflow: visible;
+}
+
+.comments-section .twikoo .tk-replies .tk-comment {
+  padding: 14px 0;
+}
+
+.comments-section .twikoo .tk-replies .tk-content,
+.comments-section .twikoo .tk-replies .tk-nick-link {
+  font-size: 13px;
+}
+
+.comments-section .twikoo .tk-expand {
+  width: 100%;
+  padding: 8px;
+  border: 0;
+  background: transparent;
+  color: var(--accent);
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.comments-section .twikoo .tk-tag {
+  display: inline-flex;
+  margin-left: 6px;
+  padding: 1px 5px;
+  border: 1px solid var(--accent-border);
+  border-radius: 3px;
+  color: var(--accent);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.comments-section .twikoo .tk-footer {
+  width: 100%;
+  margin-top: 18px;
+  color: var(--text-muted);
+  font-size: 11px;
+  text-align: right;
+}
+
+.comments-section .twikoo .tk-footer a,
+.comments-section .twikoo a {
+  color: var(--accent-deep);
+}
+
+.comments-section .twikoo .tk-pagination,
+.comments-section .twikoo .tk-pagination-pagers,
+.comments-section .twikoo .tk-pagination-options {
+  display: flex;
+  align-items: center;
+}
+
+.comments-section .twikoo .tk-pagination {
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 16px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.comments-section .twikoo .tk-pagination-pager {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.comments-section .twikoo .tk-pagination-pager.__current {
+  border-color: var(--accent-border);
+  color: var(--accent);
+  pointer-events: none;
+}
+
+.comments-section .twikoo .tk-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: block;
+  background: rgba(0, 0, 0, 0.72);
+}
+
+.comments-section .twikoo .tk-lightbox-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: auto;
+  height: auto;
+  max-width: 92%;
+  max-height: 92%;
+  transform: translate(-50%, -50%);
+}
+
+.comments-section .twikoo .el-loading-mask {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  background: var(--surface-floating);
+}
+
+.comments-section .twikoo .el-loading-spinner {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  color: var(--accent);
+  text-align: center;
+  transform: translateY(-50%);
+}
+
+.comments-section .twikoo .el-loading-spinner .circular {
+  width: 34px;
+  height: 34px;
+  animation: twikoo-spin 1.2s linear infinite;
+}
+
+.comments-section .twikoo .el-loading-spinner .path {
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+
+@keyframes twikoo-spin {
+  to { transform: rotate(360deg); }
+}
+
+.comments-section .twikoo .OwO {
+  position: relative;
+  user-select: none;
+}
+
+.comments-section .twikoo .OwO-logo {
+  width: 18px;
+  display: flex;
+}
+
+.comments-section .twikoo .OwO-body {
+  position: absolute;
+  top: 26px;
+  left: 0;
+  z-index: 30;
+  display: none;
+  width: min(500px, calc(100vw - 64px));
+  max-height: 300px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow);
+}
+
+.comments-section .twikoo .OwO-open .OwO-body {
+  display: block;
+}
+
+.comments-section .twikoo .OwO-items {
+  display: none;
+  max-height: 240px;
+  margin: 0;
+  padding: 10px;
+  overflow: auto;
+  font-size: 0;
+}
+
+.comments-section .twikoo .OwO-items-show {
+  display: block;
+}
+
+.comments-section .twikoo .OwO-item {
+  display: inline-block;
+  padding: 5px 8px;
+  border-radius: 4px;
+  font-size: 13px;
+  line-height: 1.4;
+  list-style: none;
+  text-align: center;
+  cursor: pointer;
+}
+
+.comments-section .twikoo .OwO-item:hover {
+  background: var(--accent-soft);
+}
+
+.comments-section .twikoo .OwO-bar,
+.comments-section .twikoo .OwO-packages {
+  display: flex;
+}
+
+.comments-section .twikoo .OwO-package-active {
+  color: var(--accent);
+}
+
+.comments-section .twikoo .tk-admin-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.comments-section .twikoo .tk-admin {
+  position: absolute;
+  inset: 0;
+  left: 100%;
+  z-index: 40;
+  overflow-y: auto;
+  visibility: hidden;
+  pointer-events: auto;
+  background: rgba(20, 24, 23, 0.94);
+  color: #ffffff;
+  transition: left 0.35s ease, visibility 0.35s ease;
+}
+
+.comments-section .twikoo .tk-admin.__show {
+  left: 0;
+  visibility: visible;
+}
+
+.comments-section .twikoo .tk-admin-close {
+  position: sticky;
+  top: 0;
+  float: right;
+  width: 48px;
+  height: 48px;
+  padding: 14px;
+  color: #ffffff;
+}
+
+.comments-section .twikoo .tk-login,
+.comments-section .twikoo .tk-regist {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 24px;
+}
+
+.comments-section .twikoo .tk-login-title,
+.comments-section .twikoo .tk-panel-title {
+  margin: 0 0 20px;
+  color: #ffffff;
+  font-size: 20px;
+}
+
+.comments-section .twikoo .tk-password,
+.comments-section .twikoo .tk-login-msg {
+  width: min(100%, 420px);
+  margin-top: 12px;
+  text-align: center;
+}
+
+.comments-section .twikoo .tk-panel {
+  padding: 32px;
+}
+
+@media (max-width: 640px) {
+  .comments-section .twikoo .tk-avatar {
+    width: 42px;
+    height: 42px;
+    flex-basis: 42px;
+    margin-right: 10px;
+  }
+
+  .comments-section .twikoo .tk-meta-input {
+    grid-template-columns: 1fr;
+  }
+
+  .comments-section .twikoo .tk-row.actions,
+  .comments-section .twikoo .tk-preview-container {
+    margin-left: 52px;
+  }
+
+  .comments-section .twikoo .tk-replies {
+    margin-left: 0;
+    padding-left: 12px;
+  }
+
+  .comments-section .twikoo .tk-pagination {
+    align-items: flex-start;
+    gap: 10px;
+  }
+}

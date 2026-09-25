@@ -3,7 +3,8 @@ export const site = {
   description: '在时间里写作，也在生活里停留。',
   author: 'Sun',
   authorBio: '独立开发者，记录技术、设计与日常生活。',
-  email: 'hello@example.com'
+  email: 'hello@example.com',
+  twikooEnvId: 'https://t.imsun.org'
 };
 
 export const navItems = [

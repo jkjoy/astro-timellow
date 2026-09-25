@@ -1851,6 +1851,21 @@ button {
   height: 100%;
 }
 
+.twikoo-status {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.twikoo-status.is-error {
+  color: var(--inline-code-text);
+}
+
+.twikoo-container {
+  min-height: 96px;
+  color: var(--text);
+}
+
 .comment-list,
 .comment-children {
   list-style: none;
